@@ -1,14 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.tuempresa.papeleriacampus.controller.ProductoController">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+    </padding>
+    <children>
+        <Label text="Catálogo de Productos - Papelería Campus">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <TitledPane animated="false" collapsible="false" text="Búsqueda y Filtros">
+            <content>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label text="Buscar (Código/Nombre):" />
+                        <TextField fx:id="txtFiltroTexto" promptText="Texto parcial..." prefWidth="180.0" />
 
-</AnchorPane>
+                        <Label text="Categoría:" />
+                        <ComboBox fx:id="cmbFiltroCategoria" prefWidth="130.0" />
+
+                        <CheckBox fx:id="chkSoloConStock" text="Solo con existencias" />
+
+                        <Button text="Buscar" onAction="#buscarProductos" />
+                        <Button text="Limpiar Filtros" onAction="#limpiarFiltros" />
+                        <Button text="Recargar" onAction="#cargarProductos" />
+                    </children>
+                </HBox>
+            </content>
+        </TitledPane>
+        <TableView fx:id="tblProductos" VBox.vgrow="ALWAYS" prefHeight="250.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colCodigo" prefWidth="90.0" text="Código" />
+                <TableColumn fx:id="colNombre" prefWidth="220.0" text="Nombre" />
+                <TableColumn fx:id="colCategoria" prefWidth="120.0" text="Categoría" />
+                <TableColumn fx:id="colPrecio" prefWidth="90.0" text="Precio (C$)" />
+                <TableColumn fx:id="colStock" prefWidth="80.0" text="Stock" />
+            </columns>
+        </TableView>
+        <HBox alignment="CENTER_RIGHT">
+            <children>
+                <Label fx:id="lblContador" text="Registros visibles: 0" style="-fx-font-weight: bold;" />
+            </children>
+        </HBox>
+        <TitledPane animated="false" collapsible="false" text="Datos del Producto">
+            <content>
+                <VBox spacing="10.0">
+                    <children>
+                        <GridPane hgap="10.0" vgap="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" />
+                                <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="30.0" />
+                                <RowConstraints minHeight="30.0" />
+                                <RowConstraints minHeight="30.0" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="ID (Auto):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <TextField fx:id="txtIdProducto" editable="false" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                <Label text="Código (*):" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                <TextField fx:id="txtCodigo" promptText="1-10 caracteres" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                                <Label text="Nombre (*):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <TextField fx:id="txtNombre" promptText="3-80 caracteres" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                <Label text="Categoría (*):" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <ComboBox fx:id="cmbCategoria" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                                <Label text="Precio (*):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <TextField fx:id="txtPrecio" promptText="Ej: 65.00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                <Label text="Stock (*):" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <TextField fx:id="txtStock" promptText="Ej: 25" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER" spacing="15.0">
+                            <children>
+                                <Button text="Nuevo / Limpiar" onAction="#limpiarFormulario" />
+                                <Button text="Guardar" onAction="#guardarProducto" style="-fx-base: #28a745; -fx-text-fill: white;" />
+                                <Button text="Actualizar" onAction="#actualizarProducto" style="-fx-base: #ffc107;" />
+                                <Button text="Eliminar" onAction="#eliminarProducto" style="-fx-base: #dc3545; -fx-text-fill: white;" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+    </children>
+</VBox>
